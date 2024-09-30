@@ -1,17 +1,17 @@
 {
-  "name": "storybook-addon-kit",
+  "name": "storybook-addon-redux-toolkit",
   "version": "0.0.0",
-  "description": "everything you need to build a Storybook addon",
+  "description": "addon to manage and update redux toolkit state from storybook toolbar",
   "keywords": [
-    "storybook-addons"
+    "redux", "redux-toolkit", "storybook-addons"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/storybookjs/storybook-addon-kit"
+    "url": "https://github.com/upteran/redux-toolkit-storybook-addon"
   },
   "type": "module",
   "license": "MIT",
-  "author": "package-author",
+  "author": "Andrey Tereshkin <upteran@gmail.com>",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -34,7 +34,6 @@
     "*.d.ts"
   ],
   "scripts": {
-    "postinstall": "node scripts/welcome.js",
     "build": "tsup",
     "build:watch": "npm run build -- --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -46,7 +45,8 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@storybook/icons": "^1.2.10"
+    "@storybook/icons": "^1.2.10",
+    "ts-dedent": "^2.2.0"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "0.0.0-pr-26654-sha-49d01553",
@@ -97,9 +97,9 @@
     ]
   },
   "storybook": {
-    "displayName": "Addon Kit",
+    "displayName": "no",
     "supportedFrameworks": [
-      "supported-frameworks"
+      "react"
     ],
     "icon": "https://user-images.githubusercontent.com/321738/63501763-88dbf600-c4cc-11e9-96cd-94adadc2fd72.png"
   }
