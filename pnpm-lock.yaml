@@ -14,6 +14,9 @@ dependencies:
   '@storybook/preview-api':
     specifier: ^8.3.4
     version: 8.3.4(storybook@0.0.0-pr-26654-sha-49d01553)
+  lodash.set:
+    specifier: ^4.3.2
+    version: 4.3.2
   npm-run-all:
     specifier: ^4.1.5
     version: 4.1.5
@@ -5164,6 +5167,10 @@ packages:
   /lodash.get@4.4.2:
     resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
     dev: true
+
+  /lodash.set@4.3.2:
+    resolution: {integrity: sha512-4hNPN5jlm/N/HLMCO43v8BXKq9Z7QdAGc/VGrRD61w8gN9g/6jF9A4L1pbUgBLCffi0w9VsXfTOij5x8iTyFvg==}
+    dev: false
 
   /lodash.sortby@4.7.0:
     resolution: {integrity: sha512-HDWXG8isMntAyRF5vZ7xKuEvOhT4AhlRt/3czTSjvGUxjYCBVRQY48ViDHyfYz9VIoBkW4TMGQNapx+l3RUwdA==}

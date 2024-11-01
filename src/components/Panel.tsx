@@ -17,22 +17,11 @@ export const RequestDataButton = styled(Button)({
 });
 
 export const Panel = ({ active }) => {
-  const [{ reduxToolkitParams, reduxStore, ...rest }] = useGlobals();
+  const rest = useGlobals();
   const [reducersData, setReducersData] = useState({});
 
   console.log('rest', rest)
   console.log('isActive', active)
-  console.log('reduxToolkitParams', reduxToolkitParams)
-  console.log('gl reduxStore', reduxStore)
-  useEffect(() => {
-    console.log('store', reduxStore)
-    if (reduxStore && Object.values(reduxStore).length) {
-      const st = () => {
-        return true
-      }
-      reduxStore.on(st, setReducersData)
-    }
-  }, [reduxStore]);
 
   const handleInputChange = (key, value) => {
     const updatedData = {
@@ -42,7 +31,7 @@ export const Panel = ({ active }) => {
     setReducersData(updatedData);
     // extendReducers(updatedData);
   };
-console.log('reducersData', reducersData)
+
   return (
     active && (
       <Tabs
@@ -57,7 +46,6 @@ console.log('reducersData', reducersData)
                     <label>{key}</label>
                     <input
                       type="text"
-                      value={reducersData.count.x}
                       onChange={(e) => handleInputChange(key, e.target.value)}
                     />
                   </div>
