@@ -2,6 +2,10 @@ import { ACTIONS_TYPES } from "../constants";
 
 const enhanceReducer = (mainReducer) => (state, action) => {
   switch (action.type) {
+    // case ACTIONS_TYPES.MERGE_STATE_TYPE:
+    //   return mergeReducer(state, action);
+    // case ACTIONS_TYPES.SET_STATE_AT_PATH_TYPE:
+    //   return setAtPathReducer(state, action);
     case ACTIONS_TYPES.SET_STATE_TYPE:
       if (action.state === undefined) return mainReducer(undefined, action);
       return action.state;
@@ -16,10 +20,10 @@ let _store: any;
 
 export const getStore = (): any => _store;
 
-const enhancer = (createStore) => (reducer, state) => {
-  console.log("createStore", createStore);
+const enhancer = (createStore) => (reducer, initialState) => {
+  const store = createStore(enhanceReducer(reducer), initialState);
 
-  const store = createStore(enhanceReducer(reducer), state);
+  let listener = null;
 
   const enhanceDispatch = (dispatch) => (action) => {
     const prev = store.getState();
@@ -28,8 +32,6 @@ const enhancer = (createStore) => (reducer, state) => {
     if (listener !== null) listener(action, prev, next);
     return result;
   };
-
-  let listener = null;
 
   const enhancedStore = {
     ...store,

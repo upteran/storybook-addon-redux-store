@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { decrement, increment } from "../store/originalSlice";
+import { decrement, increment } from "./outerSlice";
 
 export const Child = () => {
-  const state = useSelector((state) => state.app);
+  const state = useSelector((state) => state);
   const dispatch = useDispatch();
 
   return (

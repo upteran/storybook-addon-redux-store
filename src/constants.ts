@@ -15,6 +15,7 @@ export const ACTIONS_TYPES = {
 
 export const EVENTS = {
   INIT: `${ADDON_ID}/init`,
+  ON_DISPATCH: `${ADDON_ID}/on_dispatch`,
   SET_STATE: `${ADDON_ID}/set_state`,
   DISPATCH: `${ADDON_ID}/dispatch`,
 };

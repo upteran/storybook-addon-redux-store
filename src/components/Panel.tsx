@@ -1,25 +1,6 @@
-import React, {
-  Fragment,
-  memo,
-  useCallback,
-  useState,
-  useEffect,
-  FC,
-} from "react";
-import { Result } from "src/types";
-import { AddonPanel } from "storybook/internal/components";
-import {
-  Button,
-  Placeholder,
-  TabsState,
-  Tabs,
-  Form,
-} from "storybook/internal/components";
-import {
-  useAddonState,
-  useChannel,
-  useGlobals,
-} from "storybook/internal/manager-api";
+import React, { useCallback, useState, FC } from "react";
+import { Button } from "storybook/internal/components";
+import { useAddonState, useChannel } from "storybook/internal/manager-api";
 import { styled, useTheme } from "storybook/internal/theming";
 
 import { EVENTS, STATE_ID_STORE } from "../constants";
@@ -52,24 +33,22 @@ export const Panel = () => {
 
   // Каналы для получения и отправки событий
   const emit = useChannel({
-    [EVENTS.INIT]: (initialState) => {
-      console.log(initialState, parse(initialState));
+    [EVENTS.ON_DISPATCH]: (event) => setState(parse(event.state)),
+    [EVENTS.INIT]: (event) => {
       setInitialized(true);
-
-      return setState(initialState); // Устанавливаем начальное состояние, переданное из сторибука
+      return setState(parse(event.state));
     },
     // [EVENTS.SET_STATE]: (newState) => setState(parse(newState)),
-    [STORY_CHANGED]: () => {
-      console.log("STORY CHANGED");
+    // [STORY_CHANGED]: () => {
+    //   console.log("STORY CHANGED");
 
-      setInitialized(false);
-    },
+    //   setInitialized(false);
+    // },
   });
 
   const onChange = useCallback((newState) => {
     console.log("NEW STATE", newState);
-    setState(newState);
-    emit(EVENTS.SET_STATE, newState); // Отправляем новое состояние в сторис
+    emit(EVENTS.SET_STATE, JSON.stringify(newState)); // Отправляем новое состояние в сторис
   }, []);
 
   console.log("STATE", state);

@@ -28,9 +28,9 @@ export const Primary: Story = {
   args: {
     // counterValue: 4
   },
-  decorators: [
-    withReduxDecorator({
-      count: 10, // Пример начального состояния
-    }),
-  ],
+  // decorators: [
+  //   withReduxDecorator({
+  //     count: 10, // Пример начального состояния
+  //   }),
+  // ],
 };
