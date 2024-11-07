@@ -1,65 +1,80 @@
-import React, { Fragment, memo, useCallback, useState, useEffect } from "react";
+import React, {
+  Fragment,
+  memo,
+  useCallback,
+  useState,
+  useEffect,
+  FC,
+} from "react";
 import { Result } from "src/types";
 import { AddonPanel } from "storybook/internal/components";
-import { Button, Placeholder, TabsState, Tabs, Form } from "storybook/internal/components";
-import { useChannel, useGlobals } from "storybook/internal/manager-api";
+import {
+  Button,
+  Placeholder,
+  TabsState,
+  Tabs,
+  Form,
+} from "storybook/internal/components";
+import {
+  useAddonState,
+  useChannel,
+  useGlobals,
+} from "storybook/internal/manager-api";
 import { styled, useTheme } from "storybook/internal/theming";
 
-import { EVENTS } from "../constants";
-import { List } from "./List";
+import { EVENTS, STATE_ID_STORE } from "../constants";
+import ObjectEditor from "./ObjectEditor";
+import { STORY_CHANGED } from "storybook/internal/core-events";
+import { parse } from "../utils/jsonHelper";
 
-interface PanelProps {
-  active: boolean;
-}
+const ObjectEditorWrapper: FC<{
+  state: any;
+  onChange: (value: any) => void;
+}> = ({ state, onChange }) => {
+  // useSetStateFromParameter();
+  // useSyncReduxArgs(state);
+  return (
+    <>
+      <ObjectEditor value={state} onChange={onChange} />
+      <button onClick={() => onChange({ count: 1 })}>+</button>
+    </>
+  );
+};
 
 export const RequestDataButton = styled(Button)({
   marginTop: "1rem",
 });
 
-export const Panel = ({ active }) => {
-  const rest = useGlobals();
-  const [reducersData, setReducersData] = useState({});
+export const Panel = () => {
+  const [state, setState] = useAddonState(STATE_ID_STORE);
 
-  console.log('rest', rest)
-  console.log('isActive', active)
+  const [initialized, setInitialized] = useState(false);
 
-  const handleInputChange = (key, value) => {
-    const updatedData = {
-      ...reducersData,
-      [key]: value,
-    };
-    setReducersData(updatedData);
-    // extendReducers(updatedData);
-  };
+  // Каналы для получения и отправки событий
+  const emit = useChannel({
+    [EVENTS.INIT]: (initialState) => {
+      console.log(initialState, parse(initialState));
+      setInitialized(true);
 
-  return (
-    active && (
-      <Tabs
-        tabs={[
-          {
-            id: 'inputs',
-            title: 'Editable Inputs',
-            render: () => (
-              <Form>
-                {Object.keys(reducersData).map((key) => (
-                  <div key={key}>
-                    <label>{key}</label>
-                    <input
-                      type="text"
-                      onChange={(e) => handleInputChange(key, e.target.value)}
-                    />
-                  </div>
-                ))}
-              </Form>
-            ),
-          },
-          {
-            id: 'json',
-            title: 'JSON View',
-            render: () => <div>{JSON.stringify(reducersData)}</div>,
-          },
-        ]}
-      />
-    )
-  );
+      return setState(initialState); // Устанавливаем начальное состояние, переданное из сторибука
+    },
+    // [EVENTS.SET_STATE]: (newState) => setState(parse(newState)),
+    [STORY_CHANGED]: () => {
+      console.log("STORY CHANGED");
+
+      setInitialized(false);
+    },
+  });
+
+  const onChange = useCallback((newState) => {
+    console.log("NEW STATE", newState);
+    setState(newState);
+    emit(EVENTS.SET_STATE, newState); // Отправляем новое состояние в сторис
+  }, []);
+
+  console.log("STATE", state);
+
+  if (!initialized) return <>Loading...</>;
+
+  return <ObjectEditorWrapper state={state} onChange={onChange} />;
 };

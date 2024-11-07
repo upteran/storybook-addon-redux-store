@@ -10,12 +10,6 @@
  */
 import type { ProjectAnnotations, Renderer } from "storybook/internal/types";
 
-import { KEY } from "./constants";
-import { withGlobals } from "./withGlobals";
-import { withRoundTrip } from "./withRoundTrip";
-import { storeGlobalDecorator } from "src/store/storeGlobalDecorator";
-import { mockAppStore } from "src/store/appStore";
-
 /**
  * Note: if you want to use JSX in this file, rename it to `preview.tsx`
  * and update the entry prop in tsup.config.ts to use "src/preview.tsx",
@@ -23,11 +17,11 @@ import { mockAppStore } from "src/store/appStore";
 
 const preview: ProjectAnnotations<Renderer> = {
   // @ts-ignore
-  decorators: [withGlobals, withRoundTrip, storeGlobalDecorator],
-  initialGlobals: {
-    store: mockAppStore,
-    [KEY]: false,
-  },
+  decorators: [],
+  // initialGlobals: {
+  //   store: mockAppStore,
+  //   [KEY]: false,
+  // },
 };
 
 export default preview;
