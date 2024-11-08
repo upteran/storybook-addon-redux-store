@@ -40,8 +40,6 @@ const ObjectEditor: FC<Props> = ({ value, onChange }) => {
 
   const onChangeWrapper = useCallback((v) => {
     valueRef.current = v;
-    console.log("V", v);
-
     onChange(v);
   }, []);
 

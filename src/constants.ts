@@ -1,16 +1,14 @@
 export const ADDON_ID = "redux-toolkit-addon";
-export const TOOL_ID = `${ADDON_ID}/tool`;
-export const PANEL_ID = `${ADDON_ID}/panel`;
-export const TAB_ID = `${ADDON_ID}/tab`;
-export const KEY = `reduxToolkitAddon`;
+
+export const PANEL_ID_HISTORY = `${ADDON_ID}/panel/history`;
+export const PANEL_ID_STORE = `${ADDON_ID}/panel/store`;
 
 export const STATE_ID_STORE = `${ADDON_ID}/useState/store`;
+export const STATE_ID_HISTORY = `${ADDON_ID}/useState/history`;
 
 export const ACTIONS_TYPES = {
   RESET_REDUX_TYPE: "@@WITH_RESET_REDUX",
-  // MERGE_STATE_TYPE: "@@WITH_REDUX_MERGE_STATE",
   SET_STATE_TYPE: "@@WITH_REDUX_SET_STATE",
-  // SET_STATE_AT_PATH_TYPE: "@@SET_STATE_AT_PATH_TYPE",
 };
 
 export const EVENTS = {

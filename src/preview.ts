@@ -9,8 +9,7 @@
  * https://storybook.js.org/docs/react/writing-stories/decorators
  */
 import type { ProjectAnnotations, Renderer } from "storybook/internal/types";
-import testDecorator from "./stories/testDecorator";
-import withReduxDecorator from "./final/withReduxDecorator";
+import withReduxDecorator from "./redux/withReduxDecorator";
 
 /**
  * Note: if you want to use JSX in this file, rename it to `preview.tsx`
@@ -19,17 +18,12 @@ import withReduxDecorator from "./final/withReduxDecorator";
 
 const preview: ProjectAnnotations<Renderer> = {
   // @ts-ignore
-  // decorators: [testDecorator],
   decorators: [withReduxDecorator],
   loaders: [
     async () => ({
-      store: await import("./stories/store"),
+      store: await import("./stories/store/store"),
     }),
   ],
-  // initialGlobals: {
-  //   store: mockAppStore,
-  //   [KEY]: false,
-  // },
 };
 
 export default preview;

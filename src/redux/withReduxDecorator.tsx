@@ -1,14 +1,14 @@
 import React from "react";
-import { STORY_CHANGED } from "@storybook/core-events";
-import { EVENTS } from "../constants";
-import { getStore } from "./enhancer";
-import { StoryFn } from "@storybook/react";
 import { Provider } from "react-redux";
-import { useChannel } from "@storybook/preview-api";
-import { resetStateAction, setStateAction } from "./actionCreators";
 import { Action } from "@reduxjs/toolkit";
 import { diff as differ } from "jsondiffpatch";
+import { STORY_CHANGED } from "@storybook/core-events";
+import { StoryFn } from "@storybook/react";
+import { useChannel } from "@storybook/preview-api";
+import { EVENTS } from "../constants";
 import { parse } from "../utils/jsonHelper";
+import { resetStateAction, setStateAction } from "./actionCreators";
+import { getStore } from "./enhancer";
 
 let nextId = 0;
 
@@ -18,10 +18,6 @@ const withReduxDecorator = (Story: StoryFn) => {
   const emit = useChannel({
     [EVENTS.SET_STATE]: (stateJson: string) =>
       store.dispatch(setStateAction(parse(stateJson))),
-    // [EVENTS.SET_STATE_AT_PATH]: (path: string, value: any) =>
-    //   store.dispatch(setStateAtPathAction(path, value)),
-    // [EVENTS.MERGE_STATE]: (stateJson: string) =>
-    //   store.dispatch(mergeStateAction(parse(stateJson))),
     [EVENTS.DISPATCH]: (action: Action) => store.dispatch(action),
     [STORY_CHANGED]: (_action: Action) => store.dispatch(resetStateAction()),
   });

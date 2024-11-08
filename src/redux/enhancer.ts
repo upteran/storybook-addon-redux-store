@@ -16,10 +16,10 @@ let _store: any;
 
 export const getStore = (): any => _store;
 
-const enhancer = (createStore) => (reducer, state) => {
-  console.log("createStore", createStore);
+const enhancer = (createStore) => (reducer, initialState) => {
+  const store = createStore(enhanceReducer(reducer), initialState);
 
-  const store = createStore(enhanceReducer(reducer), state);
+  let listener = null;
 
   const enhanceDispatch = (dispatch) => (action) => {
     const prev = store.getState();
@@ -28,8 +28,6 @@ const enhancer = (createStore) => (reducer, state) => {
     if (listener !== null) listener(action, prev, next);
     return result;
   };
-
-  let listener = null;
 
   const enhancedStore = {
     ...store,

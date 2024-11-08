@@ -1,15 +1,14 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { decrement, increment } from "./outerSlice";
+import { decrement, increment } from "../store/counterSlice";
 
-export const Child = () => {
-  const state = useSelector((state) => state);
+export const Counter = () => {
+  const counter = useSelector((state) => state.counter);
   const dispatch = useDispatch();
 
   return (
     <>
-      <div>{state.count}</div>
-      <div>{JSON.stringify(state)}</div>
+      <h2>Value is: {counter.count}</h2>
       <button onClick={() => dispatch(increment())}>+</button>
       <button onClick={() => dispatch(decrement())}>-</button>
     </>
