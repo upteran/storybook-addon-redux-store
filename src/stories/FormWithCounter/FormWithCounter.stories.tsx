@@ -4,13 +4,6 @@ import { FormWithCounter } from "./FormWithCounter";
 const meta = {
   title: "Example/FormWithCounter",
   component: FormWithCounter,
-  parameters: {
-    initStore: {
-      counter: {
-        value: 2,
-      },
-    },
-  },
 } satisfies Meta<typeof FormWithCounter>;
 
 export default meta;

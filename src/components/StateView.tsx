@@ -15,6 +15,7 @@ export const StateView = () => {
     [EVENTS.ON_DISPATCH]: (event) => setState(parse(event.state)),
     [EVENTS.INIT]: (event) => {
       setInitialized(true);
+
       return setState(parse(event.state));
     },
     [STORY_CHANGED]: () => {

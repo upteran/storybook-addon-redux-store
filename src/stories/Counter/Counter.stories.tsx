@@ -5,9 +5,9 @@ const meta = {
   title: "Example/Counter",
   component: Counter,
   parameters: {
-    initStore: {
+    initialState: {
       counter: {
-        value: 2,
+        count: 10,
       },
     },
   },

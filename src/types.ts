@@ -8,3 +8,7 @@ export interface OnDispatchEvent {
   prev: string;
   state: string;
 }
+
+export type StoreListener =
+  | null
+  | ((action: Action, prev: any, next: any) => void);

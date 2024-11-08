@@ -5,9 +5,10 @@ const meta = {
   title: "Example/Form",
   component: Form,
   parameters: {
-    initStore: {
-      counter: {
-        value: 2,
+    initialState: {
+      form: {
+        name: "John",
+        surname: "Doe",
       },
     },
   },
