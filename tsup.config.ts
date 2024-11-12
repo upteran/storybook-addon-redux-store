@@ -67,6 +67,7 @@ export default defineConfig(async (options) => {
       target: [...BROWSER_TARGET, ...NODE_TARGET],
       platform: "neutral",
       external: [...globalManagerPackages, ...globalPreviewPackages],
+      outDir: "dist/esm",
     });
   }
 
@@ -81,6 +82,7 @@ export default defineConfig(async (options) => {
       target: BROWSER_TARGET,
       platform: "browser",
       external: globalManagerPackages,
+      outDir: "dist/manager",
     });
   }
 
@@ -98,6 +100,7 @@ export default defineConfig(async (options) => {
       target: BROWSER_TARGET,
       platform: "browser",
       external: globalPreviewPackages,
+      outDir: "dist/preview",
     });
   }
 
@@ -111,6 +114,7 @@ export default defineConfig(async (options) => {
       format: ["cjs"],
       target: NODE_TARGET,
       platform: "node",
+      outDir: "dist/node",
     });
   }
 

@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { ARG_REDUX_PATH, PARAM_REDUX_MERGE_STATE } from "../../constants";
+import { ARG_REDUX_PATH, PARAM_REDUX_MERGE_STATE } from "../../src/constants";
 import { Counter } from "./Counter";
 
 const meta = {

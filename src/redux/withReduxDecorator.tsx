@@ -14,8 +14,8 @@ import {
   setStateAtPathAction,
 } from "./actionCreators";
 import { getStore } from "./enhancer";
-import { getRestrictedObject } from "src/utils/getRestrictedObject";
-import { replaceValuesIteratively } from "src/utils/replaceValuesIteratively";
+import { getRestrictedObject } from "../utils/getRestrictedObject";
+import { replaceValuesIteratively } from "../utils/replaceValuesIteratively";
 
 let nextId = 0;
 

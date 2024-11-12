@@ -1,9 +1,9 @@
 import React from "react";
 import { addons, types } from "storybook/internal/manager-api";
 import { AddonPanel } from "@storybook/components";
-import { ADDON_ID, PANEL_ID_HISTORY, PANEL_ID_STORE } from "./constants";
-import { StateView } from "./components/StateView";
-import HistoryView from "./components/HistoryView";
+import { ADDON_ID, PANEL_ID_HISTORY, PANEL_ID_STORE } from "../constants";
+import { StateView } from "../components/StateView";
+import HistoryView from "../components/HistoryView";
 
 /**
  * Note: if you want to use JSX in this file, rename it to `manager.tsx`
