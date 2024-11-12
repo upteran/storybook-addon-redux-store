@@ -3,7 +3,6 @@ import { useAddonState, useChannel } from "storybook/internal/manager-api";
 import { STORY_CHANGED } from "storybook/internal/core-events";
 import { EVENTS, STATE_ID_STORE } from "../constants";
 import { parse } from "../utils/jsonHelper";
-import useSetStateFromParameter from "../utils/useSetStateFromParameter";
 import useSyncReduxArgs from "../utils/useSyncReduxArgs";
 import ObjectEditor from "./ObjectEditor";
 
@@ -11,7 +10,6 @@ const ObjectEditorWrapper: FC<{
   state: any;
   onChange: (value: any) => void;
 }> = ({ state, onChange }) => {
-  useSetStateFromParameter();
   useSyncReduxArgs(state);
   return <ObjectEditor value={state} onChange={onChange} />;
 };

@@ -2,24 +2,12 @@ import { Reducer } from "@reduxjs/toolkit";
 import { ACTIONS_TYPES } from "../constants";
 import set from "../utils/set";
 
-const mergeReducer: Reducer = (state, action) => {
-  const rootState = state;
-  const mergeInState = action.state;
-  if (typeof rootState === "object") {
-    return { ...rootState, ...mergeInState };
-  } else {
-    return mergeInState;
-  }
-};
-
 const setAtPathReducer: Reducer = (state, action) => {
   return set(state, action.path, action.value);
 };
 
 const enhanceReducer = (mainReducer) => (state, action) => {
   switch (action.type) {
-    case ACTIONS_TYPES.MERGE_STATE_TYPE:
-      return mergeReducer(state, action);
     case ACTIONS_TYPES.SET_STATE_AT_PATH_TYPE:
       return setAtPathReducer(state, action);
     case ACTIONS_TYPES.SET_STATE_TYPE:

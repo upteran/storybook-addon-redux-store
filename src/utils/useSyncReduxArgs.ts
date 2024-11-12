@@ -16,13 +16,9 @@ const useSyncReduxArgs = (state: any): void => {
   const argSyncPathMap = useArgsSyncMapReduxPath();
   const argSyncSetMap = useArgsSyncMapReduxSet();
 
-  console.log(argSyncPathMap, argSyncSetMap);
-
   argSyncPathMap.forEach((entry) => {
     const value = args[entry.name];
     if (value !== ref.current[entry.name]) {
-      console.log("should");
-
       ref.current[entry.name] = value;
       setTimeout(() => emit(EVENTS.SET_STATE_AT_PATH, entry.path, value), 0);
     }
@@ -31,8 +27,6 @@ const useSyncReduxArgs = (state: any): void => {
   argSyncSetMap.forEach((entry) => {
     const value = args[entry.name];
     if (value !== ref.current[entry.name]) {
-      console.log("shouldnt");
-
       ref.current[entry.name] = value;
       setTimeout(() => {
         const newState: any = entry.setter(value, args, state);
