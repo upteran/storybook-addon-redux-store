@@ -1,233 +1,166 @@
-# Storybook Addon no
-addon to manage and update redux toolkit state from storybook toolbar
+# Storybook Redux Toolkit Addon
 
-### Development scripts
+A Storybook addon that helps you manage and visualize Redux Toolkit state directly from Storybook's UI. This addon provides a powerful interface for debugging, manipulating, and tracking Redux state changes in your stories.
 
-- `npm run start` runs babel in watch mode and starts Storybook
-- `npm run build` build and package your addon code
+## Acknowledgments
 
-### Switch from TypeScript to JavaScript
+This project was inspired by and builds upon the excellent work done in [addon-redux](https://github.com/DreamworldSolutions/addon-redux). Their original implementation provided the foundation for Redux state management in Storybook.
 
-Don't want to use TypeScript? We offer a handy eject command: `npm run eject-ts`
+## Features
 
-This will convert all code to JS. It is a destructive process, so we recommended running this before you start writing any code.
+- 🔍 Live Redux state inspection
+- 📝 Direct state manipulation through a JSON editor
+- 📊 Action history tracking with state diffs
+- 🔄 State time-travel debugging
+- 🎯 Control Redux state through Storybook controls
+- 🔗 Path-based state binding
+- 🔄 State persistence between story reloads
 
-## What's included?
+## Requirements
 
-![Demo](https://user-images.githubusercontent.com/42671/107857205-e7044380-6dfa-11eb-8718-ad02e3ba1a3f.gif)
-
-The addon code lives in `src`. It demonstrates all core addon related concepts. The three [UI paradigms](https://storybook.js.org/docs/react/addons/addon-types#ui-based-addons)
-
-- `src/Tool.tsx`
-- `src/Panel.tsx`
-- `src/Tab.tsx`
-
-Which, along with the addon itself, are registered in `src/manager.ts`.
-
-Managing State and interacting with a story:
-
-- `src/withGlobals.ts` & `src/Tool.tsx` demonstrates how to use `useGlobals` to manage global state and modify the contents of a Story.
-- `src/withRoundTrip.ts` & `src/Panel.tsx` demonstrates two-way communication using channels.
-- `src/Tab.tsx` demonstrates how to use `useParameter` to access the current story's parameters.
-
-Your addon might use one or more of these patterns. Feel free to delete unused code. Update `src/manager.ts` and `src/preview.ts` accordingly.
-
-Lastly, configure you addon name in `src/constants.ts`.
-
-### Bundling
-
-Addons can interact with a Storybook project in multiple ways. It is recommended to familiarize yourself with [the basics](https://storybook.js.org/docs/react/addons/introduction) before getting started.
-
-- Manager entries are used to add UI or behavior to the Storybook manager UI.
-- Preview entries are used to add UI or behavior to the preview iframe where stories are rendered.
-- Presets are used to modify the Storybook configuration, similar to how [users can configure their `main.ts` configurations](https://storybook.js.org/docs/react/api/main-config).
-
-Since each of these places represents a different environment with different features and modules, it is also recommended to split and build your modules accordingly. This addon-kit comes with a preconfigured [bundling configuration](./tsup.config.ts) that supports this split, and you are free to modify and extend it as needed.
-
-You can define which modules match which environments in the [`package.json#bundler`](./package.json) property:
-
-- `exportEntries` is a list of module entries that users can manually import from anywhere they need to. For example, you could have decorators that users need to import into their `preview.ts` file or utility functions that can be used in their `main.ts` files.
-- `managerEntries` is a list of module entries meant only for the manager UI. These modules will be bundled to ESM and won't include types since they are mostly loaded by Storybook directly.
-- `previewEntries` is a list of module entries meant only for the preview UI. These modules will be bundled to ESM and won't include types since they are mostly loaded by Storybook directly.
-
-Manager and preview entries are only used in the browser so they only output ESM modules. Export entries could be used both in the browser and in Node depending on their use case, so they both output ESM and CJS modules.
-
-#### Globalized packages
-
-Storybook provides a predefined set of packages that are available in the manager UI and the preview UI. In the final bundle of your addon, these packages should not be included. Instead, the imports should stay in place, allowing Storybook to replace those imports with the actual packages during the Storybook build process.
-
-The list of packages differs between the manager and the preview, which is why there is a slight difference between `managerEntries` and `previewEntries`. Most notably, `react` and `react-dom` are prebundled in the manager but not in the preview. This means that your manager entries can use React to build UI without bundling it or having a direct reference to it. Therefore, it is safe to have React as a `devDependency` even though you are using it in production. _Requiring React as a peer dependency would unnecessarily force your users to install React._
-
-An exception to this rule is if you are using React to inject UI into the preview, which does not come prebundled with React. In such cases, you need to move `react` and `react-dom` to a peer dependency. However, we generally advise against this pattern since it would limit the usage of your addon to React-based Storybooks.
-
-### Metadata
-
-Storybook addons are listed in the [catalog](https://storybook.js.org/addons) and distributed via npm. The catalog is populated by querying npm's registry for Storybook-specific metadata in `package.json`. This project has been configured with sample data. Learn more about available options in the [Addon metadata docs](https://storybook.js.org/docs/react/addons/addon-catalog#addon-metadata).
-
-## Documentation
-
-To help the community use your addon and understand its capabilities, please document it thoroughly.
-
-To get started, replace this README with the content in this sample template, modeled after how essential addons (like [Actions](https://storybook.js.org/docs/essentials/actions)) are documented. Then update the content to describe your addon.
-
-### Sample documentation template
-
-````md
-# My Addon
+### Core Dependencies
+- React >= 18.0.0
+- Redux >= 4.0.0
+- React Redux >= 9.0.0
+- @reduxjs/toolkit >= 2.0.0
+- Storybook >= 8.0.0
 
 ## Installation
 
-First, install the package.
-
-```sh
-npm install --save-dev my-addon
+```bash
+npm install --save-dev storybook-addon-redux-toolkit
 ```
 
-Then, register it as an addon in `.storybook/main.js`.
+## Setup
 
-```js
-// .storybook/main.ts
+1. Register the addon in your `.storybook/main.ts`:
 
-// Replace your-framework with the framework you are using (e.g., react-webpack5, vue3-vite)
-import type { StorybookConfig } from '@storybook/your-framework';
+```ts
+import type { StorybookConfig } from '@storybook/react';
 
 const config: StorybookConfig = {
-  // ...rest of config
-  addons: [
-    '@storybook/addon-essentials'
-    'my-addon', // 👈 register the addon here
-  ],
-};
-
+    addons: [
+        // ... other addons
+        'storybook-addon-redux-toolkit'
+        ],
+    };
 export default config;
+```
+
+2. Add the Redux enhancer to your store:
+
+```ts
+import { configureStore } from '@reduxjs/toolkit';
+import { enhancer } from 'storybook-addon-redux-toolkit';
+
+const store = configureStore({
+  reducer: {
+    // your reducers
+  },
+  enhancers: (getDefaultEnhancers) =>
+    getDefaultEnhancers().concat(enhancer)
+});
+```
+
+3. Wrap your stories with the Redux Provider using the withRedux decorator:
+
+```ts
+// .storybook/preview.ts
+import { Preview } from '@storybook/react';
+import { Provider } from 'react-redux';
+import { withRedux } from 'storybook-addon-redux-toolkit';
+
+const preview: Preview = {
+  decorators: [withRedux(Provider)],
+};
+export default preview;
 ```
 
 ## Usage
 
-The primary way to use this addon is to define the `exampleParameter` parameter. You can do this the
-component level, as below, to affect all stories in the file, or you can do it for a single story.
+### Basic State Control
 
-```js
-// Button.stories.ts
+You can control Redux state through story parameters:
 
-// Replace your-framework with the name of your framework
-import type { Meta } from '@storybook/your-framework';
-
-import { Button } from './Button';
-
-const meta: Meta<typeof Button> = {
-  component: Button,
-  parameters: {
-    myAddon: {
-      exampleParameter: true,
-      // See API section below for available parameters
+```ts
+import type { Meta } from '@storybook/react';
+import { PARAM_REDUX_MERGE_STATE } from 'storybook-addon-redux-toolkit';
+const meta: Meta = {
+title: 'Components/MyComponent',
+parameters: {
+    [PARAM_REDUX_MERGE_STATE]: {
+      counter: {
+        value: 42
+      }
     }
   }
 };
-
 export default meta;
 ```
 
-Another way to use the addon is...
+### Binding Controls to State
 
-## API
+You can bind Storybook controls directly to Redux state paths:
+
+```ts
+import { ARG_REDUX_PATH } from 'storybook-addon-redux-toolkit';
+const meta: Meta = {
+title: 'Components/MyComponent',
+argTypes: {
+count: {
+        control: { type: 'number' },
+        [ARG_REDUX_PATH]: 'counter.value'
+    }
+  }
+};
+```
+
+
+## Features in Detail
+
+### State Panel
+
+The addon adds a "Redux Store" panel to Storybook's UI where you can:
+- View the current Redux state
+- Edit state values directly
+- Reset state to initial values
+
+### History Panel
+
+The "Redux History" panel shows:
+- A chronological list of dispatched actions
+- State diffs for each action
+- Previous and current state snapshots
+- Ability to time-travel by loading previous states
+
+## API Reference
 
 ### Parameters
 
-This addon contributes the following parameters to Storybook, under the `myAddon` namespace:
+- `PARAM_REDUX_MERGE_STATE`: Merges state with the initial Redux state
+- `ARG_REDUX_PATH`: Binds a control to a specific Redux state path
 
-#### `disable`
-
-Type: `boolean`
-
-Disable this addon's behavior. This parameter is most useful to allow overriding at more specific
-levels. For example, if this parameter is set to true at the project level, it could then be
-re-enabled by setting it to false at the meta (component) or story level.
-
-### Options
-
-When registering this addon, you can configure it with the following options, which are passed when
-registering the addon, like so:
+### Exports
 
 ```ts
-// .storybook/main.ts
-
-// Replace your-framework with the framework you are using (e.g., react-webpack5, vue3-vite)
-import type { StorybookConfig } from '@storybook/your-framework';
-
-const config: StorybookConfig = {
-  // ...rest of config
-  addons: [
-    '@storybook/essentials',
-    {
-      name: 'my-addon',
-      options: {
-        // 👈 options for my-addon go here
-      },
-    },
-  ],
-};
-
-export default config;
+import {
+    enhancer, // Redux store enhancer
+    withRedux, // Storybook decorator
+    PARAM_REDUX_MERGE_STATE,
+    ARG_REDUX_PATH
+} from 'storybook-addon-redux-toolkit';
 ```
 
-#### `useExperimentalBehavior`
 
-Type: `boolean`
+## Contributing
 
-Enable experimental behavior to...
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-````
+## License
 
-## Release Management
+MIT License
 
-### Setup
-
-This project is configured to use [auto](https://github.com/intuit/auto) for release management. It generates a changelog and pushes it to both GitHub and npm. Therefore, you need to configure access to both:
-
-- [`NPM_TOKEN`](https://docs.npmjs.com/creating-and-viewing-access-tokens#creating-access-tokens) Create a token with both _Read and Publish_ permissions.
-- [`GH_TOKEN`](https://github.com/settings/tokens) Create a token with the `repo` scope.
-
-Then open your `package.json` and edit the following fields:
-
-- `name`
-- `author`
-- `repository`
-
-#### Local
-
-To use `auto` locally create a `.env` file at the root of your project and add your tokens to it:
-
-```bash
-GH_TOKEN=<value you just got from GitHub>
-NPM_TOKEN=<value you just got from npm>
-```
-
-Lastly, **create labels on GitHub**. You’ll use these labels in the future when making changes to the package.
-
-```bash
-npx auto create-labels
-```
-
-If you check on GitHub, you’ll now see a set of labels that `auto` would like you to use. Use these to tag future pull requests.
-
-#### GitHub Actions
-
-This template comes with GitHub actions already set up to publish your addon anytime someone pushes to your repository.
-
-Go to `Settings > Secrets`, click `New repository secret`, and add your `NPM_TOKEN`.
-
-### Creating a release
-
-To create a release locally you can run the following command, otherwise the GitHub action will make the release for you.
-
-```sh
-npm run release
-```
-
-That will:
-
-- Build and package the addon code
-- Bump the version
-- Push a release to GitHub and npm
-- Push a changelog to GitHub
