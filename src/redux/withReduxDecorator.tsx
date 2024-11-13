@@ -1,10 +1,11 @@
 // @ts-nocheck
-import React from "react";
+import React, { useEffect } from "react";
 // import { Provider } from "react-redux";
 import { Action } from "@reduxjs/toolkit";
 import { diff as differ } from "jsondiffpatch";
 import { STORY_CHANGED } from "@storybook/core-events";
 import { StoryContext, StoryFn } from "@storybook/react";
+import { useStorybookState } from "storybook/internal/manager-api";
 import { useChannel, useRef } from "@storybook/preview-api";
 import { StoreListener } from "../types";
 import { EVENTS, PARAM_REDUX_MERGE_STATE } from "../constants";
@@ -21,6 +22,7 @@ import { replaceValuesIteratively } from "../utils/replaceValuesIteratively";
 let nextId = 0;
 
 export const withRedux = (Provider) => (Story: any, context: any) => {
+  const storyId = context.id;
   const mergeStateRef = useRef("");
 
   const initialState = context.parameters[PARAM_REDUX_MERGE_STATE];
@@ -39,7 +41,6 @@ export const withRedux = (Provider) => (Story: any, context: any) => {
     [EVENTS.SET_STATE_AT_PATH]: (path: string, value: any) =>
       store.dispatch(setStateAtPathAction(path, value)),
     [EVENTS.DISPATCH]: (action: Action) => store.dispatch(action),
-    [STORY_CHANGED]: (_action: Action) => store.dispatch(resetStateAction()),
   });
 
   const onDispatchListener: StoreListener = (action, prev, state): void => {
@@ -63,18 +64,26 @@ export const withRedux = (Provider) => (Story: any, context: any) => {
     emit(EVENTS.ON_DISPATCH, event);
   };
 
-  const mergeStateChanged = initialState !== mergeStateRef.current;
-  mergeStateRef.current = initialState;
+  useEffect(() => {
+    const mergeStateChanged = initialState !== mergeStateRef.current;
+    mergeStateRef.current = initialState;
 
-  if (initialState && mergeStateChanged) {
-    store.dispatch(setStateAction({ ...store.getState(), ...initialState }));
-    emit(EVENTS.INIT, {
-      state: JSON.stringify(initialState),
-    });
-  } else if (!initialState)
-    emit(EVENTS.INIT, {
-      state: JSON.stringify(store.getState()),
-    });
+    // Очищаем стейт при смене истории
+    if (storyId) {
+      store.dispatch(resetStateAction());
+    }
+
+    // Обработка начального состояния
+    if (initialState && mergeStateChanged) {
+      store.dispatch(setStateAction({ ...store.getState(), ...initialState }));
+      emit(EVENTS.INIT, {
+        state: JSON.stringify(initialState),
+      });
+    } else if (!initialState)
+      emit(EVENTS.INIT, {
+        state: JSON.stringify(store.getState()),
+      });
+  }, [storyId, initialState]);
 
   if (store.__WITH_REDUX_ENABLED__ === undefined)
     throw new Error("withRedux enhancer is not enabled in the store");

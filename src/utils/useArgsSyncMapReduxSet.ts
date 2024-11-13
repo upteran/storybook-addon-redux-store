@@ -18,13 +18,6 @@ const useSyncMap = (): ArgSyncSetEntry[] => {
   }
 
   if (typesChanged) {
-    console.log(
-      "entries",
-      Object.entries(types),
-      "filter",
-      Object.entries(types).filter(syncEnabled),
-    );
-
     syncMapRef.current = Object.entries(types)
       .filter(syncEnabled)
       .map(([name, data]) => ({ name, setter: data[ARG_REDUX_SET_STATE] })); // check if function
