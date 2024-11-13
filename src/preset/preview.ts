@@ -1,3 +1,3 @@
-import withReduxDecorator from "../redux/withReduxDecorator";
+// import withReduxDecorator from "../redux/withReduxDecorator";
 
-export const decorators = [withReduxDecorator];
+// export const decorators = [withReduxDecorator()];

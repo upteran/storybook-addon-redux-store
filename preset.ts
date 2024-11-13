@@ -1,9 +1,9 @@
 function config(entry = []) {
-  return [...entry, require.resolve("./dist/preview/preview.js")];
+  return [...entry, require.resolve("./preview.js")];
 }
 
 function managerEntries(entry = []) {
-  return [...entry, require.resolve("./dist/manager/manager.js")];
+  return [...entry, require.resolve("./manager.js")];
 }
 
 module.exports = {

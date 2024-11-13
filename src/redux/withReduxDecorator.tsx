@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import { Provider } from "react-redux";
 import { Action } from "@reduxjs/toolkit";
@@ -19,7 +20,7 @@ import { replaceValuesIteratively } from "../utils/replaceValuesIteratively";
 
 let nextId = 0;
 
-const withReduxDecorator = (Story: StoryFn, context: StoryContext) => {
+export const withRedux = (Story: any, context: any) => {
   const mergeStateRef = useRef("");
 
   const initialState = context.parameters[PARAM_REDUX_MERGE_STATE];
@@ -88,5 +89,3 @@ const withReduxDecorator = (Story: StoryFn, context: StoryContext) => {
     </Provider>
   );
 };
-
-export default withReduxDecorator;

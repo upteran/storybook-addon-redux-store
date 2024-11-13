@@ -1,5 +1,5 @@
 import type { Preview } from "@storybook/react";
-import withReduxDecorator from "../src/redux/withReduxDecorator";
+import { withRedux } from "../src/redux/withReduxDecorator";
 
 const preview: Preview = {
   parameters: {
@@ -13,7 +13,7 @@ const preview: Preview = {
   initialGlobals: {
     background: { value: "light" },
   },
-  decorators: [withReduxDecorator],
+  decorators: [withRedux],
   loaders: [
     async () => ({
       store: await import("../stories/store/store"),
