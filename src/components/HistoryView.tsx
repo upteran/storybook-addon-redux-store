@@ -46,6 +46,10 @@ const TableStyle = styled.table(() => ({
   width: "100%",
 }));
 
+const expandedCellStyle = {
+  height: "initial",
+};
+
 const Json: FC<{ data: any }> = ({ data }) => {
   const [expanded, setExpanded] = useState(false);
 
@@ -53,12 +57,11 @@ const Json: FC<{ data: any }> = ({ data }) => {
     setExpanded(!expanded);
   };
 
-  const style = {
-    height: "initial",
-  };
-
   return (
-    <JsonCellStyle onClick={onClick} style={expanded ? style : undefined}>
+    <JsonCellStyle
+      onClick={onClick}
+      style={expanded ? expandedCellStyle : undefined}
+    >
       {expanded ? JSON.stringify(data, null, 2) : "..."}
     </JsonCellStyle>
   );
