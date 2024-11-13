@@ -32,7 +32,7 @@ export const withRedux = (Provider) => (Story: any, context: any) => {
       store.dispatch(
         setStateAction(
           initialState
-            ? replaceValuesIteratively(store.getState(), parse(stateJson))
+            ? { ...store.getState(), ...parse(stateJson) }
             : parse(stateJson),
         ),
       ),
@@ -67,9 +67,7 @@ export const withRedux = (Provider) => (Story: any, context: any) => {
   mergeStateRef.current = initialState;
 
   if (initialState && mergeStateChanged) {
-    store.dispatch(
-      setStateAction(replaceValuesIteratively(store.getState(), initialState)),
-    );
+    store.dispatch(setStateAction({ ...store.getState(), ...initialState }));
     emit(EVENTS.INIT, {
       state: JSON.stringify(initialState),
     });
