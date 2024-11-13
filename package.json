@@ -47,7 +47,6 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.2.7",
     "@storybook/components": "^8.4.2",
     "@storybook/core-events": "^8.4.2",
     "@storybook/icons": "^1.2.10",
@@ -57,8 +56,6 @@
     "jsoneditor": "^10.1.0",
     "lodash.set": "^4.3.2",
     "npm-run-all": "^4.1.5",
-    "react": "^18.3.1",
-    "react-redux": "^9.1.2",
     "ts-dedent": "^2.2.0"
   },
   "devDependencies": {
@@ -87,7 +84,10 @@
     "zx": "^7.2.3"
   },
   "peerDependencies": {
-    "storybook": "^8.3.0 || 0.0.0-pr-26654-sha-49d01553"
+    "storybook": "^8.3.0 || 0.0.0-pr-26654-sha-49d01553",
+    "react": "^18.3.1",
+    "react-redux": "^9.1.2",
+    "@reduxjs/toolkit": "^2.2.7"
   },
   "overrides": {
     "storybook": "0.0.0-pr-26654-sha-49d01553"

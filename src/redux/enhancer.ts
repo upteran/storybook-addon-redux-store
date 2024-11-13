@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Reducer } from "@reduxjs/toolkit";
 import { ACTIONS_TYPES } from "../constants";
 import set from "../utils/set";
@@ -24,7 +25,7 @@ let _store: any;
 
 export const getStore = (): any => _store;
 
-const enhancer = (createStore) => (reducer, initialState) => {
+export const enhancer = (createStore) => (reducer, initialState) => {
   const store = createStore(enhanceReducer(reducer), initialState);
 
   let listener = null;
@@ -49,5 +50,3 @@ const enhancer = (createStore) => (reducer, initialState) => {
 
   return enhancedStore;
 };
-
-export default enhancer;
