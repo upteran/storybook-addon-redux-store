@@ -1,22 +1,24 @@
+// Probably deprecated
+
 type PartialObject<T> = {
   [K in keyof T]?: T[K] extends object ? PartialObject<T[K]> : T[K];
 };
 
 /**
- * Утилита для замены значений в исходном объекте на значения из шаблона, поддерживающая большую вложенность
- * @param source - исходный объект
- * @param replacements - шаблон с новыми значениями, которые заменяют соответствующие поля в исходном объекте
- * @returns новый объект с замененными значениями
+ * A utility for replacing values ​​in a source object with values ​​from a template
+ * @param source - source object
+ * @param replacements - template with new values ​​that replace the corresponding fields in the original object
+ * @returns new object with replaced values
  */
 
 export const replaceValuesIteratively = <T>(
   source: T,
   replacements: PartialObject<T>,
 ): T => {
-  // Копируем исходный объект
+  // Copying source object
   const result = JSON.parse(JSON.stringify(source));
 
-  // Стек для обхода объектов, каждый элемент — кортеж [currentResult, currentSource, currentReplacements]
+  // Stack for traversing objects, each element is a tuple [currentResult, currentSource, currentReplacements]
   const stack: Array<[any, any, PartialObject<any>]> = [
     [result, source, replacements],
   ];
@@ -33,15 +35,15 @@ export const replaceValuesIteratively = <T>(
           typeof currentReplacements[key] === "object" &&
           typeof currentSource[key] === "object"
         ) {
-          // Если значения — объекты, добавляем их в стек для дальнейшей обработки
-          currentResult[key] = structuredClone(currentSource[key]); // Копируем вложенный объект
+          // If the values ​​are objects, add them to the stack for further processing
+          currentResult[key] = structuredClone(currentSource[key]); // Copying a nested object
           stack.push([
             currentResult[key],
             currentSource[key],
             currentReplacements[key] as PartialObject<any>,
           ]);
         } else {
-          // Иначе просто заменяем значение
+          // Otherwise replace the value
           currentResult[key] = currentReplacements[key];
         }
       }

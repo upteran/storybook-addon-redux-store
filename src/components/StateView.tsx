@@ -19,7 +19,7 @@ export const StateView = () => {
 
   const [initialized, setInitialized] = useState(false);
 
-  // Каналы для получения и отправки событий
+  // Channels for receiving and sending events
   const emit = useChannel({
     [EVENTS.ON_DISPATCH]: (event) => setState(parse(event.state)),
     [EVENTS.INIT]: (event) => {
@@ -33,7 +33,7 @@ export const StateView = () => {
   });
 
   const onChange = useCallback((newState) => {
-    emit(EVENTS.SET_STATE, JSON.stringify(newState)); // Отправляем новое состояние в сторис
+    emit(EVENTS.SET_STATE, JSON.stringify(newState)); // Send the new status to stories
   }, []);
 
   if (!initialized) return <>Loading...</>;

@@ -3,10 +3,10 @@ type PartialObject<T> = {
 };
 
 /**
- * Утилита для получения ограниченного объекта
- * @param source - исходный объект
- * @param template - шаблон объекта, который определяет, какие поля брать из исходного объекта
- * @returns ограниченный объект
+ * Utility to get a restricted object
+ * @param source - source object
+ * @param template - an object template that defines which fields to take from the original object
+ * @returns restricted object
  */
 
 export const getRestrictedObject = <T>(
@@ -21,13 +21,13 @@ export const getRestrictedObject = <T>(
         typeof template[key] === "object" &&
         typeof source[key as keyof T] === "object"
       ) {
-        // Рекурсивно копируем вложенные объекты, делаем приведение типа
+        // Recursively copy nested objects, do a type cast
         result[key as keyof T] = getRestrictedObject(
           source[key as keyof T],
           template[key] as PartialObject<T[keyof T]>,
         ) as T[keyof T] extends object ? PartialObject<T[keyof T]> : T[keyof T];
       } else {
-        // Копируем значение
+        // Copy value
         result[key as keyof T] = source[key as keyof T];
       }
     }

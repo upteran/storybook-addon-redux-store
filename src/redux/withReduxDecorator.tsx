@@ -68,12 +68,12 @@ export const withRedux = (Provider) => (Story: any, context: any) => {
     const mergeStateChanged = initialState !== mergeStateRef.current;
     mergeStateRef.current = initialState;
 
-    // Очищаем стейт при смене истории
+    // Clearing state when changing history
     if (storyId) {
       store.dispatch(resetStateAction());
     }
 
-    // Обработка начального состояния
+    // Processing initial state
     if (initialState && mergeStateChanged) {
       store.dispatch(setStateAction({ ...store.getState(), ...initialState }));
       emit(EVENTS.INIT, {
