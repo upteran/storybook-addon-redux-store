@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from "react";
-import { Provider } from "react-redux";
+// import { Provider } from "react-redux";
 import { Action } from "@reduxjs/toolkit";
 import { diff as differ } from "jsondiffpatch";
 import { STORY_CHANGED } from "@storybook/core-events";
@@ -20,7 +20,7 @@ import { replaceValuesIteratively } from "../utils/replaceValuesIteratively";
 
 let nextId = 0;
 
-export const withRedux = (Story: any, context: any) => {
+export const withRedux = (Provider) => (Story: any, context: any) => {
   const mergeStateRef = useRef("");
 
   const initialState = context.parameters[PARAM_REDUX_MERGE_STATE];

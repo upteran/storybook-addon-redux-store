@@ -66,7 +66,7 @@ export default defineConfig(async (options) => {
       format: ["esm", "cjs"],
       target: [...BROWSER_TARGET, ...NODE_TARGET],
       platform: "neutral",
-      external: [...globalManagerPackages, ...globalPreviewPackages],
+      external: [...globalManagerPackages, ...globalPreviewPackages, 'redux', 'react-redux', '@redux/toolkit'],
     });
   }
 
@@ -80,7 +80,7 @@ export default defineConfig(async (options) => {
       format: ["esm"],
       target: BROWSER_TARGET,
       platform: "browser",
-      external: globalManagerPackages,
+      external: [...globalManagerPackages, 'redux', 'react-redux', '@redux/toolkit'],
     });
   }
 
@@ -97,7 +97,7 @@ export default defineConfig(async (options) => {
       format: ["esm", "cjs"],
       target: BROWSER_TARGET,
       platform: "browser",
-      external: globalPreviewPackages,
+      external: [...globalPreviewPackages, 'redux', 'react-redux', '@redux/toolkit'],
     });
   }
 
