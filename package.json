@@ -1,5 +1,5 @@
 {
-  "name": "storybook-addon-redux-toolkit",
+  "name": "storybook-addon-redux-state",
   "version": "0.0.0",
   "description": "addon to manage and update redux toolkit state from storybook toolbar",
   "keywords": [
@@ -9,11 +9,17 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/upteran/redux-toolkit-storybook-addon"
+    "url": "https://github.com/upteran/storybook-addon-redux-state"
   },
   "type": "module",
   "license": "MIT",
   "author": "Andrey Tereshkin <upteran@gmail.com>",
+  "contributors": [
+    {
+      "name": "Nick Levshin",
+      "url": "https://github.com/nick-levshin"
+    }
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

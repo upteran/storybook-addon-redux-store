@@ -1,10 +1,10 @@
-# Storybook Redux Toolkit Addon
+# Storybook Redux State Addon
 
 A Storybook addon that helps you manage and visualize Redux Toolkit state directly from Storybook's UI. This addon provides a powerful interface for debugging, manipulating, and tracking Redux state changes in your stories.
 
 ## Acknowledgments
 
-This project was inspired by and builds upon the excellent work done in [addon-redux](https://github.com/DreamworldSolutions/addon-redux). Their original implementation provided the foundation for Redux state management in Storybook.
+This project was inspired by and builds upon the excellent work done in [addon-redux](https://github.com/frodare/addon-redux). Their original implementation provided the foundation for this addon.
 
 ## Features
 
@@ -28,7 +28,7 @@ This project was inspired by and builds upon the excellent work done in [addon-r
 ## Installation
 
 ```bash
-npm install --save-dev storybook-addon-redux-toolkit
+npm install --save-dev storybook-addon-redux-state
 ```
 
 ## Setup
@@ -41,7 +41,7 @@ import type { StorybookConfig } from '@storybook/react';
 const config: StorybookConfig = {
     addons: [
         // ... other addons
-        'storybook-addon-redux-toolkit'
+        'storybook-addon-redux-state'
         ],
     };
 export default config;
@@ -51,7 +51,7 @@ export default config;
 
 ```ts
 import { configureStore } from '@reduxjs/toolkit';
-import { enhancer } from 'storybook-addon-redux-toolkit';
+import { enhancer } from 'storybook-addon-redux-state';
 
 const store = configureStore({
   reducer: {
@@ -68,7 +68,7 @@ const store = configureStore({
 // .storybook/preview.ts
 import { Preview } from '@storybook/react';
 import { Provider } from 'react-redux';
-import { withRedux } from 'storybook-addon-redux-toolkit';
+import { withRedux } from 'storybook-addon-redux-state';
 
 const preview: Preview = {
   decorators: [withRedux(Provider)],
@@ -84,7 +84,7 @@ You can control Redux state through story parameters:
 
 ```ts
 import type { Meta } from '@storybook/react';
-import { PARAM_REDUX_MERGE_STATE } from 'storybook-addon-redux-toolkit';
+import { PARAM_REDUX_MERGE_STATE } from 'storybook-addon-redux-state';
 const meta: Meta = {
 title: 'Components/MyComponent',
 parameters: {
@@ -103,7 +103,7 @@ export default meta;
 You can bind Storybook controls directly to Redux state paths:
 
 ```ts
-import { ARG_REDUX_PATH } from 'storybook-addon-redux-toolkit';
+import { ARG_REDUX_PATH } from 'storybook-addon-redux-state';
 const meta: Meta = {
 title: 'Components/MyComponent',
 argTypes: {
@@ -148,7 +148,7 @@ import {
     withRedux, // Storybook decorator
     PARAM_REDUX_MERGE_STATE,
     ARG_REDUX_PATH
-} from 'storybook-addon-redux-toolkit';
+} from 'storybook-addon-redux-state';
 ```
 
 
