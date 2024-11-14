@@ -10,13 +10,13 @@ import HistoryView from "../components/HistoryView";
  * and update the entry prop in tsup.config.ts to use "src/manager.tsx",
  */
 
-const StorePanel = (props) => (
+const StorePanel = (props: any) => (
   <AddonPanel {...props}>
     <StateView />
   </AddonPanel>
 );
 
-const HistoryPanel = (props) => (
+const HistoryPanel = (props: any) => (
   <AddonPanel {...props}>
     <HistoryView />
   </AddonPanel>
