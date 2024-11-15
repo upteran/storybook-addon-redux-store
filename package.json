@@ -45,7 +45,7 @@
     "build": "tsup",
     "build:watch": "npm run build -- --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "run-p build:watch \"storybook --quiet\"",
+    "start": "concurrently \"npm run build:watch\" \"npm run storybook --quiet\"",
     "prerelease": "zx scripts/prepublish-checks.js",
     "release": "npm run build && auto shipit",
     "eject-ts": "zx scripts/eject-typescript.js",
@@ -61,6 +61,7 @@
     "ts-dedent": "^2.2.0"
   },
   "devDependencies": {
+    "@reduxjs/toolkit": "^2.2.7",
     "@storybook/addon-essentials": "0.0.0-pr-26654-sha-49d01553",
     "@storybook/addon-interactions": "0.0.0-pr-26654-sha-49d01553",
     "@storybook/addon-links": "0.0.0-pr-26654-sha-49d01553",
@@ -75,26 +76,26 @@
     "@vitejs/plugin-react": "^4.2.1",
     "auto": "^11.1.1",
     "boxen": "^7.1.1",
+    "concurrently": "^8.2.2",
     "dedent": "^1.5.1",
+    "jsoneditor": "^10.1.0",
     "prettier": "^3.3.3",
     "prompts": "^2.4.2",
+    "react": "^18.3.1",
     "react-dom": "^18.2.0",
+    "react-redux": "^9.1.2",
     "storybook": "0.0.0-pr-26654-sha-49d01553",
     "tsup": "^8.2.4",
     "typescript": "^5.5.4",
     "vite": "^5.3.5",
-    "zx": "^7.2.3",
-    "react": "^18.3.1",
-    "react-redux": "^9.1.2",
-    "@reduxjs/toolkit": "^2.2.7",
-    "jsoneditor": "^10.1.0"
+    "zx": "^7.2.3"
   },
   "peerDependencies": {
-    "storybook": "^8.3.0 || 0.0.0-pr-26654-sha-49d01553",
+    "@reduxjs/toolkit": "^2.2.7",
+    "jsoneditor": "^10.1.0",
     "react": "^18.3.1",
     "react-redux": "^9.1.2",
-    "@reduxjs/toolkit": "^2.2.7",
-    "jsoneditor": "^10.1.0"
+    "storybook": "^8.3.0 || 0.0.0-pr-26654-sha-49d01553"
   },
   "overrides": {
     "storybook": "0.0.0-pr-26654-sha-49d01553"
