@@ -38,7 +38,7 @@ const useEditor = (onChange: ChangeHandler): UseEditorResult => {
 const ObjectEditor: FC<Props> = ({ value, onChange }) => {
   const valueRef = useRef({});
 
-  const onChangeWrapper = useCallback((v) => {
+  const onChangeWrapper = useCallback((v: any) => {
     valueRef.current = v;
     onChange(v);
   }, []);

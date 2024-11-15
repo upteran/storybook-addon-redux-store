@@ -32,7 +32,7 @@ export const StateView = () => {
     },
   });
 
-  const onChange = useCallback((newState) => {
+  const onChange = useCallback((newState: unknown) => {
     emit(EVENTS.SET_STATE, JSON.stringify(newState)); // Send the new status to stories
   }, []);
 

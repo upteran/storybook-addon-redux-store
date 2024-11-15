@@ -1,13 +1,14 @@
-// @ts-nocheck
-import { Reducer } from "@reduxjs/toolkit";
+import {Reducer, StoreEnhancer, UnknownAction, StoreEnhancerStoreCreator, Dispatch} from "@reduxjs/toolkit";
 import { ACTIONS_TYPES } from "../constants";
 import set from "../utils/set";
 
-const setAtPathReducer: Reducer = (state, action) => {
+type StateChangeListener = (action: UnknownAction, prevState: any, nextState: any) => void;
+
+const setAtPathReducer: Reducer = (state, action: { type: string, path: string, value: string } ) => {
   return set(state, action.path, action.value);
 };
 
-const enhanceReducer = (mainReducer) => (state, action) => {
+const enhanceReducer = <S>(mainReducer: Reducer<S>) => (state: S, action: UnknownAction) => {
   switch (action.type) {
     case ACTIONS_TYPES.SET_STATE_AT_PATH_TYPE:
       return setAtPathReducer(state, action);
@@ -25,12 +26,14 @@ let _store: any;
 
 export const getStore = (): any => _store;
 
-export const enhancer = (createStore) => (reducer, initialState) => {
-  const store = createStore(enhanceReducer(reducer), initialState);
+export const enhancer: StoreEnhancer<any> = (createStore: StoreEnhancerStoreCreator) =>
+  <S, A extends UnknownAction, PreloadedState>(reducer: Reducer<S, A>, initialState?: PreloadedState) => {
 
-  let listener = null;
+  const store = createStore(enhanceReducer(reducer as Reducer), initialState);
 
-  const enhanceDispatch = (dispatch) => (action) => {
+  let listener: StateChangeListener | null = null;
+
+  const enhanceDispatch = (dispatch: Dispatch): Dispatch => (action) => {
     const prev = store.getState();
     const result = dispatch(action);
     const next = store.getState();
@@ -42,7 +45,7 @@ export const enhancer = (createStore) => (reducer, initialState) => {
     ...store,
     dispatch: enhanceDispatch(store.dispatch),
     __WITH_REDUX_ENABLED__: {
-      listenToStateChange: (l) => (listener = l),
+      listenToStateChange: (l: StateChangeListener) => (listener = l),
     },
   };
 

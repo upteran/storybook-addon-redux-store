@@ -1,4 +1,4 @@
-export const ADDON_ID = "redux-toolkit-addon";
+export const ADDON_ID = "redux-state-addon";
 
 export const PANEL_ID_HISTORY = `${ADDON_ID}/panel/history`;
 export const PANEL_ID_STORE = `${ADDON_ID}/panel/store`;

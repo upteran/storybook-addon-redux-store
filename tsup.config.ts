@@ -48,7 +48,7 @@ export default defineConfig(async (options) => {
     minify: !options.watch,
     treeshake: true,
     sourcemap: true,
-    clean: options.watch ? false : true,
+    clean: !options.watch,
   };
 
   const configs: Options[] = [];
@@ -66,7 +66,7 @@ export default defineConfig(async (options) => {
       format: ["esm", "cjs"],
       target: [...BROWSER_TARGET, ...NODE_TARGET],
       platform: "neutral",
-      external: [...globalManagerPackages, ...globalPreviewPackages, 'redux', 'react-redux', '@redux/toolkit'],
+      external: [...globalManagerPackages, ...globalPreviewPackages],
     });
   }
 
@@ -80,7 +80,7 @@ export default defineConfig(async (options) => {
       format: ["esm"],
       target: BROWSER_TARGET,
       platform: "browser",
-      external: [...globalManagerPackages, 'redux', 'react-redux', '@redux/toolkit'],
+      external: [...globalManagerPackages],
     });
   }
 
@@ -97,7 +97,7 @@ export default defineConfig(async (options) => {
       format: ["esm", "cjs"],
       target: BROWSER_TARGET,
       platform: "browser",
-      external: [...globalPreviewPackages, 'redux', 'react-redux', '@redux/toolkit'],
+      external: [...globalPreviewPackages],
     });
   }
 
