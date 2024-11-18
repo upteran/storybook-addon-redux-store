@@ -13,7 +13,8 @@ on: [push]
 jobs:
   release:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
+    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
+    # if: github.event.pull_request.merged == true
     steps:
       - uses: actions/checkout@v4
 
