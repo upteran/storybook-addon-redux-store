@@ -19,6 +19,7 @@ This project was inspired by and builds upon the excellent work done in [addon-r
 ## Requirements
 
 ### Core Dependencies
+
 - React >= 18.0.0
 - Redux >= 4.0.0
 - React Redux >= 9.0.0
@@ -36,29 +37,28 @@ npm install --save-dev storybook-addon-redux-state
 1. Register the addon in your `.storybook/main.ts`:
 
 ```ts
-import type { StorybookConfig } from '@storybook/react';
+import type { StorybookConfig } from "@storybook/react";
 
 const config: StorybookConfig = {
-    addons: [
-        // ... other addons
-        'storybook-addon-redux-state'
-        ],
-    };
+  addons: [
+    // ... other addons
+    "storybook-addon-redux-state",
+  ],
+};
 export default config;
 ```
 
 2. Add the Redux enhancer to your store:
 
 ```ts
-import { configureStore } from '@reduxjs/toolkit';
-import { enhancer } from 'storybook-addon-redux-state';
+import { configureStore } from "@reduxjs/toolkit";
+import { enhancer } from "storybook-addon-redux-state";
 
 const store = configureStore({
   reducer: {
     // your reducers
   },
-  enhancers: (getDefaultEnhancers) =>
-    getDefaultEnhancers().concat(enhancer)
+  enhancers: (getDefaultEnhancers) => getDefaultEnhancers().concat(enhancer),
 });
 ```
 
@@ -66,12 +66,30 @@ const store = configureStore({
 
 ```ts
 // .storybook/preview.ts
-import { Preview } from '@storybook/react';
-import { Provider } from 'react-redux';
-import { withRedux } from 'storybook-addon-redux-state';
+import { Preview } from "@storybook/react";
+import { Provider } from "react-redux";
+import { withRedux } from "storybook-addon-redux-state";
 
 const preview: Preview = {
   decorators: [withRedux(Provider)],
+};
+export default preview;
+```
+
+4. Import the store to your `.storybook/preview.ts`:
+
+```ts
+import { Preview } from "@storybook/react";
+import { Provider } from "react-redux";
+import { withRedux } from "storybook-addon-redux-state";
+
+const preview: Preview = {
+  decorators: [withRedux(Provider)],
+  loaders: [
+    async () => ({
+      store: await import("./your/store"),
+    }),
+  ],
 };
 export default preview;
 ```
@@ -83,17 +101,17 @@ export default preview;
 You can control Redux state through story parameters:
 
 ```ts
-import type { Meta } from '@storybook/react';
-import { PARAM_REDUX_MERGE_STATE } from 'storybook-addon-redux-state';
+import type { Meta } from "@storybook/react";
+import { PARAM_REDUX_MERGE_STATE } from "storybook-addon-redux-state";
 const meta: Meta = {
-title: 'Components/MyComponent',
-parameters: {
+  title: "Components/MyComponent",
+  parameters: {
     [PARAM_REDUX_MERGE_STATE]: {
       counter: {
-        value: 42
-      }
-    }
-  }
+        value: 42,
+      },
+    },
+  },
 };
 export default meta;
 ```
@@ -103,24 +121,24 @@ export default meta;
 You can bind Storybook controls directly to Redux state paths:
 
 ```ts
-import { ARG_REDUX_PATH } from 'storybook-addon-redux-state';
+import { ARG_REDUX_PATH } from "storybook-addon-redux-state";
 const meta: Meta = {
-title: 'Components/MyComponent',
-argTypes: {
-count: {
-        control: { type: 'number' },
-        [ARG_REDUX_PATH]: 'counter.value'
-    }
-  }
+  title: "Components/MyComponent",
+  argTypes: {
+    count: {
+      control: { type: "number" },
+      [ARG_REDUX_PATH]: "counter.value",
+    },
+  },
 };
 ```
-
 
 ## Features in Detail
 
 ### State Panel
 
 The addon adds a "Redux Store" panel to Storybook's UI where you can:
+
 - View the current Redux state
 - Edit state values directly
 - Reset state to initial values
@@ -128,6 +146,7 @@ The addon adds a "Redux Store" panel to Storybook's UI where you can:
 ### History Panel
 
 The "Redux History" panel shows:
+
 - A chronological list of dispatched actions
 - State diffs for each action
 - Previous and current state snapshots
@@ -144,13 +163,12 @@ The "Redux History" panel shows:
 
 ```ts
 import {
-    enhancer, // Redux store enhancer
-    withRedux, // Storybook decorator
-    PARAM_REDUX_MERGE_STATE,
-    ARG_REDUX_PATH
-} from 'storybook-addon-redux-state';
+  enhancer, // Redux store enhancer
+  withRedux, // Storybook decorator
+  PARAM_REDUX_MERGE_STATE,
+  ARG_REDUX_PATH,
+} from "storybook-addon-redux-state";
 ```
-
 
 ## Contributing
 
@@ -163,4 +181,3 @@ import {
 ## License
 
 MIT License
-
