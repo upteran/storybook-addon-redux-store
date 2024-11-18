@@ -48,7 +48,7 @@ export default defineConfig(async (options) => {
     minify: !options.watch,
     treeshake: true,
     sourcemap: true,
-    clean: options.watch ? false : true,
+    clean: !options.watch,
   };
 
   const configs: Options[] = [];
@@ -80,7 +80,7 @@ export default defineConfig(async (options) => {
       format: ["esm"],
       target: BROWSER_TARGET,
       platform: "browser",
-      external: globalManagerPackages,
+      external: [...globalManagerPackages],
     });
   }
 
@@ -97,7 +97,7 @@ export default defineConfig(async (options) => {
       format: ["esm", "cjs"],
       target: BROWSER_TARGET,
       platform: "browser",
-      external: globalPreviewPackages,
+      external: [...globalPreviewPackages],
     });
   }
 

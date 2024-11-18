@@ -1,4 +1,6 @@
 import type { Preview } from "@storybook/react";
+import { withRedux } from "../src/redux/withReduxDecorator";
+import { Provider } from "react-redux";
 
 const preview: Preview = {
   parameters: {
@@ -12,6 +14,12 @@ const preview: Preview = {
   initialGlobals: {
     background: { value: "light" },
   },
+  decorators: [withRedux(Provider)],
+  loaders: [
+    async () => ({
+      store: await import("../stories/store/store"),
+    }),
+  ],
 };
 
 export default preview;
