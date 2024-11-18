@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-redux-state",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "description": "addon to manage and update redux toolkit state from storybook toolbar",
   "keywords": [
     "redux",
@@ -92,7 +92,6 @@
   },
   "peerDependencies": {
     "@reduxjs/toolkit": "^2.2.7",
-    "react": "^18.3.1",
     "react-redux": "^9.1.2",
     "storybook": "^8.3.0 || 0.0.0-pr-26654-sha-49d01553"
   },
