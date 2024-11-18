@@ -1,6 +1,6 @@
 {
-  "name": "storybook-addon-redux-state",
-  "version": "1.0.0-beta.4",
+  "name": "storybook-addon-redux-store",
+  "version": "1.0.1--canary.423ed39.0",
   "description": "addon to manage and update redux toolkit state from storybook toolbar",
   "keywords": [
     "redux",
@@ -9,7 +9,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/upteran/storybook-addon-redux-state.git"
+    "url": "git+https://github.com/upteran/storybook-addon-redux-store.git"
   },
   "type": "module",
   "license": "MIT",

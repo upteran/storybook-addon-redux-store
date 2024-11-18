@@ -29,7 +29,7 @@ This project was inspired by and builds upon the excellent work done in [addon-r
 ## Installation
 
 ```bash
-npm install --save-dev storybook-addon-redux-state
+npm install --save-dev storybook-addon-redux-store
 ```
 
 ## Setup
@@ -42,7 +42,7 @@ import type { StorybookConfig } from "@storybook/react";
 const config: StorybookConfig = {
   addons: [
     // ... other addons
-    "storybook-addon-redux-state",
+    "storybook-addon-redux-store",
   ],
 };
 export default config;
@@ -52,7 +52,7 @@ export default config;
 
 ```ts
 import { configureStore } from "@reduxjs/toolkit";
-import { enhancer } from "storybook-addon-redux-state";
+import { enhancer } from "storybook-addon-redux-store";
 
 const store = configureStore({
   reducer: {
@@ -68,7 +68,7 @@ const store = configureStore({
 // .storybook/preview.ts
 import { Preview } from "@storybook/react";
 import { Provider } from "react-redux";
-import { withRedux } from "storybook-addon-redux-state";
+import { withRedux } from "storybook-addon-redux-store";
 
 const preview: Preview = {
   decorators: [withRedux(Provider)],
@@ -81,7 +81,7 @@ export default preview;
 ```ts
 import { Preview } from "@storybook/react";
 import { Provider } from "react-redux";
-import { withRedux } from "storybook-addon-redux-state";
+import { withRedux } from "storybook-addon-redux-store";
 
 const preview: Preview = {
   decorators: [withRedux(Provider)],
@@ -102,7 +102,7 @@ You can control Redux state through story parameters:
 
 ```ts
 import type { Meta } from "@storybook/react";
-import { PARAM_REDUX_MERGE_STATE } from "storybook-addon-redux-state";
+import { PARAM_REDUX_MERGE_STATE } from "storybook-addon-redux-store";
 const meta: Meta = {
   title: "Components/MyComponent",
   parameters: {
@@ -121,7 +121,7 @@ export default meta;
 You can bind Storybook controls directly to Redux state paths:
 
 ```ts
-import { ARG_REDUX_PATH } from "storybook-addon-redux-state";
+import { ARG_REDUX_PATH } from "storybook-addon-redux-store";
 const meta: Meta = {
   title: "Components/MyComponent",
   argTypes: {
@@ -167,7 +167,7 @@ import {
   withRedux, // Storybook decorator
   PARAM_REDUX_MERGE_STATE,
   ARG_REDUX_PATH,
-} from "storybook-addon-redux-state";
+} from "storybook-addon-redux-store";
 ```
 
 ## Contributing
