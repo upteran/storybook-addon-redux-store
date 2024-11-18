@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-redux-state",
-  "version": "0.0.0",
+  "version": "1.0.0-beta.1",
   "description": "addon to manage and update redux toolkit state from storybook toolbar",
   "keywords": [
     "redux",
