@@ -1,3 +1,15 @@
+# v1.0.2 (Wed Nov 20 2024)
+
+#### 🐛 Bug Fix
+
+- fix: remove diff column from history [#13](https://github.com/upteran/storybook-addon-redux-store/pull/13) ([@nick-levshin](https://github.com/nick-levshin))
+
+#### Authors: 1
+
+- Nick Levshin ([@nick-levshin](https://github.com/nick-levshin))
+
+---
+
 # v1.0.1 (Mon Nov 18 2024)
 
 #### 🐛 Bug Fix
