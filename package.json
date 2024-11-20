@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-redux-store",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "addon to manage and update redux toolkit state from storybook toolbar",
   "keywords": [
     "redux",
