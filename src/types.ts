@@ -5,7 +5,7 @@ export interface OnDispatchEvent {
   id: number;
   date: Date;
   action: Action;
-  diff: string;
+  // diff: string;
   prev: string;
   state: string;
 }

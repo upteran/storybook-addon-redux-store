@@ -73,7 +73,7 @@ const Header: FC<{}> = () => {
       <ThStyle>Time</ThStyle>
       <ThStyle>Type</ThStyle>
       <ThStyle>Action</ThStyle>
-      <ThStyle>Diff</ThStyle>
+      {/* <ThStyle>Diff</ThStyle> */}
       <ThStyle>Previous State</ThStyle>
       <ThStyle>Current State</ThStyle>
       <ThStyle> </ThStyle>
@@ -103,7 +103,7 @@ interface RowProps extends OnDispatchEvent {
   emit: (eventName: string, ...args: any[]) => void;
 }
 
-const Row: FC<RowProps> = ({ date, action, diff, prev, state, emit }) => {
+const Row: FC<RowProps> = ({ date, action, prev, state, emit }) => {
   return (
     <tr>
       <TdStyle>{formatDate(date)}</TdStyle>
@@ -113,9 +113,9 @@ const Row: FC<RowProps> = ({ date, action, diff, prev, state, emit }) => {
       <TdStyle>
         <Json data={action} />
       </TdStyle>
-      <TdStyle>
+      {/* <TdStyle>
         <Json data={parse(diff)} />
-      </TdStyle>
+      </TdStyle> */}
       <TdStyle>
         <Json data={parse(prev)} />
       </TdStyle>

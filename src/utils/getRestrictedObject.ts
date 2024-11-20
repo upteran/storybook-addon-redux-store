@@ -19,7 +19,9 @@ export const getRestrictedObject = <T>(
     if (template[key] !== undefined && source[key as keyof T] !== undefined) {
       if (
         typeof template[key] === "object" &&
-        typeof source[key as keyof T] === "object"
+        template[key] !== null &&
+        typeof source[key as keyof T] === "object" &&
+        source[key as keyof T] !== null
       ) {
         // Recursively copy nested objects, do a type cast
         result[key as keyof T] = getRestrictedObject(
