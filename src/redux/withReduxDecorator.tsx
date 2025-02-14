@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Provider as ReduxProvider } from "react-redux";
 import { Action } from "@reduxjs/toolkit";
-// import { diff as differ } from "jsondiffpatch";
 // import { STORY_CHANGED } from "@storybook/core-events";
 // todo: using storybook types faced with memory leak on build step
 // import type { StoryContext, StoryFn } from "@storybook/react";
@@ -18,6 +17,7 @@ import {
 import { getStore } from "./enhancer";
 import { getRestrictedObject } from "../utils/getRestrictedObject";
 import type { ComponentType } from "react";
+import { differ } from "../utils/differ";
 // import { replaceValuesIteratively } from "../utils/replaceValuesIteratively";
 
 let nextId = 0;
@@ -51,7 +51,7 @@ export const withRedux =
 
     const onDispatchListener: StoreListener = (action, prev, state): void => {
       // TODO: replace with another function. This one causes error when compare `null` and `{}`
-      // const diff = differ(prev, state);
+      const diff = differ(prev, state);
       const date = new Date();
       const restrictedPrev = initialState
         ? getRestrictedObject(prev, initialState)
@@ -64,7 +64,7 @@ export const withRedux =
         id: nextId++,
         date,
         action,
-        // diff: JSON.stringify(diff),
+        diff: JSON.stringify(diff),
         prev: JSON.stringify(restrictedPrev),
         state: JSON.stringify(restrictedState),
       };
