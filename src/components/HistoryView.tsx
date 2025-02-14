@@ -1,9 +1,11 @@
 import React, { FC, useState } from "react";
 import { styled } from "@storybook/theming";
 import { useAddonState, useChannel } from "storybook/internal/manager-api";
-import { ACTIONS_TYPES, EVENTS, STATE_ID_HISTORY } from "../constants";
+import { EVENTS, STATE_ID_HISTORY } from "../constants";
 import { parse } from "../utils/jsonHelper";
 import { OnDispatchEvent } from "../types";
+import { STORY_CHANGED } from "storybook/internal/core-events";
+import { Action } from "@reduxjs/toolkit";
 
 const reducer = (
   events: OnDispatchEvent[],
@@ -138,6 +140,7 @@ const HistoryView: FC<{}> = () => {
   const emit = useChannel({
     [EVENTS.ON_DISPATCH]: (event: OnDispatchEvent) =>
       setEvents((events) => reducer(events, event)),
+    [STORY_CHANGED]: (_action: Action) => setEvents([]),
   });
 
   return (
