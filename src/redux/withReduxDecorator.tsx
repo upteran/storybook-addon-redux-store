@@ -50,7 +50,6 @@ export const withRedux =
     });
 
     const onDispatchListener: StoreListener = (action, prev, state): void => {
-      // TODO: replace with another function. This one causes error when compare `null` and `{}`
       const diff = differ(prev, state);
       const date = new Date();
       const restrictedPrev = initialState
