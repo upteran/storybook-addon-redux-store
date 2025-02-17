@@ -1,11 +1,11 @@
 import React, { FC, useState } from "react";
+import { Action } from "@reduxjs/toolkit";
 import { styled } from "@storybook/theming";
+import { STORY_CHANGED } from "storybook/internal/core-events";
 import { useAddonState, useChannel } from "storybook/internal/manager-api";
+import { OnDispatchEvent } from "../types";
 import { EVENTS, STATE_ID_HISTORY } from "../constants";
 import { parse } from "../utils/jsonHelper";
-import { OnDispatchEvent } from "../types";
-import { STORY_CHANGED } from "storybook/internal/core-events";
-import { Action } from "@reduxjs/toolkit";
 
 const reducer = (
   events: OnDispatchEvent[],

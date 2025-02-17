@@ -18,7 +18,6 @@ import { getStore } from "./enhancer";
 import { getRestrictedObject } from "../utils/getRestrictedObject";
 import type { ComponentType } from "react";
 import { differ } from "../utils/differ";
-// import { replaceValuesIteratively } from "../utils/replaceValuesIteratively";
 
 let nextId = 0;
 

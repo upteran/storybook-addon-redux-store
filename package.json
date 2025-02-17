@@ -108,9 +108,6 @@
     "managerEntries": [
       "src/preset/manager.tsx"
     ],
-    "previewEntries": [
-      "src/preset/preview.ts"
-    ],
     "nodeEntries": [
       "./preset.ts"
     ]
