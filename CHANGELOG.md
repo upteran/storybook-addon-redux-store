@@ -1,3 +1,15 @@
+# v1.0.3 (Tue Feb 18 2025)
+
+#### 🐛 Bug Fix
+
+- Fix: json editor, impot types. Add: events for HistoryView [#14](https://github.com/upteran/storybook-addon-redux-store/pull/14) ([@nick-levshin](https://github.com/nick-levshin))
+
+#### Authors: 1
+
+- Nick Levshin ([@nick-levshin](https://github.com/nick-levshin))
+
+---
+
 # v1.0.2 (Wed Nov 20 2024)
 
 #### 🐛 Bug Fix
