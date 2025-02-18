@@ -1,23 +1,21 @@
 import React, { useEffect } from "react";
+import type { ComponentType } from "react";
 import { Provider as ReduxProvider } from "react-redux";
 import { Action } from "@reduxjs/toolkit";
-// import { STORY_CHANGED } from "@storybook/core-events";
+import { useChannel, useRef } from "@storybook/preview-api";
 // todo: using storybook types faced with memory leak on build step
 // import type { StoryContext, StoryFn } from "@storybook/react";
-// import { useStorybookState } from "storybook/internal/manager-api";
-import { useChannel, useRef } from "@storybook/preview-api";
 import { StoreListener } from "../types";
 import { EVENTS, PARAM_REDUX_MERGE_STATE } from "../constants";
+import { differ } from "../utils/differ";
+import { getRestrictedObject } from "../utils/getRestrictedObject";
 import { parse } from "../utils/jsonHelper";
+import { getStore } from "./enhancer";
 import {
   resetStateAction,
   setStateAction,
   setStateAtPathAction,
 } from "./actionCreators";
-import { getStore } from "./enhancer";
-import { getRestrictedObject } from "../utils/getRestrictedObject";
-import type { ComponentType } from "react";
-import { differ } from "../utils/differ";
 
 let nextId = 0;
 
