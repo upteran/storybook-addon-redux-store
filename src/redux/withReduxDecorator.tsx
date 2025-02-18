@@ -1,24 +1,21 @@
 import React, { useEffect } from "react";
+import type { ComponentType } from "react";
 import { Provider as ReduxProvider } from "react-redux";
 import { Action } from "@reduxjs/toolkit";
-// import { diff as differ } from "jsondiffpatch";
-// import { STORY_CHANGED } from "@storybook/core-events";
+import { useChannel, useRef } from "@storybook/preview-api";
 // todo: using storybook types faced with memory leak on build step
 // import type { StoryContext, StoryFn } from "@storybook/react";
-// import { useStorybookState } from "storybook/internal/manager-api";
-import { useChannel, useRef } from "@storybook/preview-api";
 import { StoreListener } from "../types";
 import { EVENTS, PARAM_REDUX_MERGE_STATE } from "../constants";
+import { differ } from "../utils/differ";
+import { getRestrictedObject } from "../utils/getRestrictedObject";
 import { parse } from "../utils/jsonHelper";
+import { getStore } from "./enhancer";
 import {
   resetStateAction,
   setStateAction,
   setStateAtPathAction,
 } from "./actionCreators";
-import { getStore } from "./enhancer";
-import { getRestrictedObject } from "../utils/getRestrictedObject";
-import type { ComponentType } from "react";
-// import { replaceValuesIteratively } from "../utils/replaceValuesIteratively";
 
 let nextId = 0;
 
@@ -50,8 +47,7 @@ export const withRedux =
     });
 
     const onDispatchListener: StoreListener = (action, prev, state): void => {
-      // TODO: replace with another function. This one causes error when compare `null` and `{}`
-      // const diff = differ(prev, state);
+      const diff = differ(prev, state);
       const date = new Date();
       const restrictedPrev = initialState
         ? getRestrictedObject(prev, initialState)
@@ -64,7 +60,7 @@ export const withRedux =
         id: nextId++,
         date,
         action,
-        // diff: JSON.stringify(diff),
+        diff: JSON.stringify(diff),
         prev: JSON.stringify(restrictedPrev),
         state: JSON.stringify(restrictedState),
       };

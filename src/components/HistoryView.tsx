@@ -1,9 +1,11 @@
 import React, { FC, useState } from "react";
+import { Action } from "@reduxjs/toolkit";
 import { styled } from "@storybook/theming";
+import { STORY_CHANGED } from "storybook/internal/core-events";
 import { useAddonState, useChannel } from "storybook/internal/manager-api";
-import { ACTIONS_TYPES, EVENTS, STATE_ID_HISTORY } from "../constants";
-import { parse } from "../utils/jsonHelper";
 import { OnDispatchEvent } from "../types";
+import { EVENTS, STATE_ID_HISTORY } from "../constants";
+import { parse } from "../utils/jsonHelper";
 
 const reducer = (
   events: OnDispatchEvent[],
@@ -73,7 +75,7 @@ const Header: FC<{}> = () => {
       <ThStyle>Time</ThStyle>
       <ThStyle>Type</ThStyle>
       <ThStyle>Action</ThStyle>
-      {/* <ThStyle>Diff</ThStyle> */}
+      <ThStyle>Diff</ThStyle>
       <ThStyle>Previous State</ThStyle>
       <ThStyle>Current State</ThStyle>
       <ThStyle> </ThStyle>
@@ -103,7 +105,7 @@ interface RowProps extends OnDispatchEvent {
   emit: (eventName: string, ...args: any[]) => void;
 }
 
-const Row: FC<RowProps> = ({ date, action, prev, state, emit }) => {
+const Row: FC<RowProps> = ({ date, action, diff, prev, state, emit }) => {
   return (
     <tr>
       <TdStyle>{formatDate(date)}</TdStyle>
@@ -113,9 +115,9 @@ const Row: FC<RowProps> = ({ date, action, prev, state, emit }) => {
       <TdStyle>
         <Json data={action} />
       </TdStyle>
-      {/* <TdStyle>
+      <TdStyle>
         <Json data={parse(diff)} />
-      </TdStyle> */}
+      </TdStyle>
       <TdStyle>
         <Json data={parse(prev)} />
       </TdStyle>
@@ -136,12 +138,9 @@ const HistoryView: FC<{}> = () => {
   );
 
   const emit = useChannel({
-    [EVENTS.ON_DISPATCH]: (event: OnDispatchEvent) => {
-      if (Object.values(ACTIONS_TYPES).includes(event.action.type)) {
-        return;
-      }
-      setEvents((events) => reducer(events, event));
-    },
+    [EVENTS.ON_DISPATCH]: (event: OnDispatchEvent) =>
+      setEvents((events) => reducer(events, event)),
+    [STORY_CHANGED]: (_action: Action) => setEvents([]),
   });
 
   return (

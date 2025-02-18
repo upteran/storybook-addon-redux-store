@@ -1,48 +1,54 @@
-const PATH_SEPARATOR = /[^.[\]]+/g
+const PATH_SEPARATOR = /[^.[\]]+/g;
 
-const isNotObject = (o: any): boolean => Object(o) !== o
+const isNotObject = (o: any): boolean => Object(o) !== o;
 
-const isArrayIndexable = (s: any): boolean => Math.abs(s) >> 0 === +s
+const isArrayIndexable = (s: any): boolean => Math.abs(s) >> 0 === +s;
 
-const seedObject = (nextPathPart: string): any => isArrayIndexable(nextPathPart) ? [] : {}
+const seedObject = (nextPathPart: string): any =>
+  isArrayIndexable(nextPathPart) ? [] : {};
 
 const set = (obj: any, path: string, value: any): any => {
-  if (path === null || path === undefined) return obj
-  if (isNotObject(obj)) return obj
-  const aPath = path.match(PATH_SEPARATOR) ?? []
-  const max = aPath.length - 1
+  if (path === null || path === undefined) return obj;
+  if (isNotObject(obj)) return obj;
+  const aPath = path.match(PATH_SEPARATOR) ?? [];
+  const max = aPath.length - 1;
 
-  let clone: any
-  let prevBranch: any
-  let prevPath: string
+  let clone: any;
+  let prevBranch: any;
+  let prevPath: string;
 
-  const reduceObjectBranch = (branch: any, pathPart: string, i: number): any => {
-    const branchClone = Array.isArray(branch) ? [...branch] : { ...branch }
+  const reduceObjectBranch = (
+    branch: any,
+    pathPart: string,
+    i: number,
+  ): any => {
+    const branchClone = Array.isArray(branch) ? [...branch] : { ...branch };
 
     // mutate cloned branch
     if (i === max) {
-      branchClone[pathPart] = value
+      branchClone[pathPart] = value;
     } else if (isNotObject(branchClone[pathPart])) {
-      branchClone[pathPart] = seedObject(aPath[i + 1])
+      branchClone[pathPart] = seedObject(aPath[i + 1]);
     }
 
     // update cloned object with the new branch
     if (i === 0) {
-      clone = branchClone
-      prevBranch = clone
+      clone = branchClone;
+      prevBranch = clone;
     } else {
-      prevBranch[prevPath] = branchClone
-      prevBranch = branchClone
+      prevBranch[prevPath] = branchClone;
+      prevBranch = branchClone;
     }
-    prevPath = pathPart
+    prevPath = pathPart;
 
     // return the next branch for iteration
-    return branchClone[pathPart]
-  }
+    return branchClone[pathPart];
+  };
 
-  aPath.reduce(reduceObjectBranch, obj)
+  // @ts-ignore
+  aPath.reduce(reduceObjectBranch, obj);
 
-  return clone
-}
+  return clone;
+};
 
-export default set
+export default set;

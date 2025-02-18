@@ -1,6 +1,7 @@
 import React, { FC, useCallback, useRef, RefObject, useEffect } from "react";
 import JSONEditor, { JSONEditorOptions } from "jsoneditor";
 import "jsoneditor/dist/jsoneditor.css";
+import { useDebouncedCallback } from "../utils/useDebouncedCallback";
 
 interface Props {
   value: object;
@@ -37,10 +38,11 @@ const useEditor = (onChange: ChangeHandler): UseEditorResult => {
 
 const ObjectEditor: FC<Props> = ({ value, onChange }) => {
   const valueRef = useRef({});
+  const debouncedOnChange = useDebouncedCallback(onChange, 400);
 
   const onChangeWrapper = useCallback((v: any) => {
     valueRef.current = v;
-    onChange(v);
+    debouncedOnChange(v);
   }, []);
 
   const { editorRef, containerRef } = useEditor(onChangeWrapper);

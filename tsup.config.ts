@@ -16,7 +16,6 @@ type BundlerConfig = {
     exportEntries?: string[];
     nodeEntries?: string[];
     managerEntries?: string[];
-    previewEntries?: string[];
   };
 };
 
@@ -27,7 +26,6 @@ export default defineConfig(async (options) => {
   //   "bundler": {
   //     "exportEntries": ["./src/index.ts"],
   //     "managerEntries": ["./src/manager.ts"],
-  //     "previewEntries": ["./src/preview.ts"]
   //     "nodeEntries": ["./src/preset.ts"]
   //   }
   // }
@@ -35,12 +33,7 @@ export default defineConfig(async (options) => {
     JSON.parse,
   )) as BundlerConfig;
   const {
-    bundler: {
-      exportEntries = [],
-      managerEntries = [],
-      previewEntries = [],
-      nodeEntries = [],
-    } = {},
+    bundler: { exportEntries = [], managerEntries = [], nodeEntries = [] } = {},
   } = packageJson;
 
   const commonConfig: Options = {
@@ -81,23 +74,6 @@ export default defineConfig(async (options) => {
       target: BROWSER_TARGET,
       platform: "browser",
       external: [...globalManagerPackages],
-    });
-  }
-
-  // preview entries are entries meant to be loaded into the preview iframe
-  // they'll have preview-specific packages externalized and they won't be usable in node
-  // they'll have types generated for them so they can be imported when setting up Portable Stories
-  if (previewEntries.length) {
-    configs.push({
-      ...commonConfig,
-      entry: previewEntries,
-      dts: {
-        resolve: true,
-      },
-      format: ["esm", "cjs"],
-      target: BROWSER_TARGET,
-      platform: "browser",
-      external: [...globalPreviewPackages],
     });
   }
 
