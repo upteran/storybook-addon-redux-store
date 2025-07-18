@@ -1,4 +1,4 @@
-import type { Preview } from "@storybook/react";
+import type { Preview } from "@storybook/react-vite";
 import { withRedux } from "../src/redux/withReduxDecorator";
 import { Provider } from "react-redux";
 
