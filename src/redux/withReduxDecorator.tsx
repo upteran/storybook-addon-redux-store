@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import type { ComponentType } from "react";
 import { Provider as ReduxProvider } from "react-redux";
 import { Action } from "@reduxjs/toolkit";
-import { useChannel, useRef } from "@storybook/preview-api";
+import { useChannel, useRef } from "storybook/preview-api";
 // todo: using storybook types faced with memory leak on build step
 // import type { StoryContext, StoryFn } from "@storybook/react";
 import { StoreListener } from "../types";
