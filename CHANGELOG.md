@@ -1,3 +1,22 @@
+# v1.0.4 (Thu Aug 21 2025)
+
+#### 🐛 Bug Fix
+
+- fix: release configs [#20](https://github.com/upteran/storybook-addon-redux-store/pull/20) ([@upteran](https://github.com/upteran))
+- fix: release ci config [#19](https://github.com/upteran/storybook-addon-redux-store/pull/19) ([@upteran](https://github.com/upteran))
+- fix: version branches param [#18](https://github.com/upteran/storybook-addon-redux-store/pull/18) ([@upteran](https://github.com/upteran))
+- docs: readme version info [#17](https://github.com/upteran/storybook-addon-redux-store/pull/17) ([@upteran](https://github.com/upteran))
+
+#### ⚠️ Pushed to `main`
+
+- fix: release branch name ([@upteran](https://github.com/upteran))
+
+#### Authors: 1
+
+- Andrew Tereshkin ([@upteran](https://github.com/upteran))
+
+---
+
 # v1.0.3 (Tue Feb 18 2025)
 
 #### 🐛 Bug Fix
