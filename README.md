@@ -1,4 +1,4 @@
-# Storybook Redux State Addon
+# Storybook Redux State Addon v.1.x
 
 A Storybook addon that helps you manage and visualize Redux Toolkit state directly from Storybook's UI. This addon provides a powerful interface for debugging, manipulating, and tracking Redux state changes in your stories.
 
