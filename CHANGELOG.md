@@ -1,3 +1,15 @@
+# v1.0.5 (Thu Aug 21 2025)
+
+#### ⚠️ Pushed to `main`
+
+- fix: publish branch name (upteran@gmail.com)
+
+#### Authors: 1
+
+- upteran (upteran@gmail.com)
+
+---
+
 # v1.0.4 (Thu Aug 21 2025)
 
 #### 🐛 Bug Fix
