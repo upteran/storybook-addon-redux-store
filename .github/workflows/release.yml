@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - 1.x
+      - v1
 
 jobs:
   release:
@@ -25,11 +25,6 @@ jobs:
       - name: Install dependencies
         run: npm install --ignore-scripts
 
-      - name: Set npm dist-tag for 1.x
-        if: github.ref_name == '1.x'
-        run: |
-          echo "NPM_CONFIG_TAG=v1" >> $GITHUB_ENV
-          echo "tag=v1" >> ~/.npmrc 
       - name: Create Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
