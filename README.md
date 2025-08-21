@@ -1,5 +1,9 @@
 # Storybook Redux State Addon v.1.x
 
+This v1.x line is compatible with Storybook 8.x.
+If you are using Storybook 9 or newer, please use the 2.x line instead.
+To install this compatibility line explicitly, use: `npm i storybook-addon-redux-store@v1`.
+
 A Storybook addon that helps you manage and visualize Redux Toolkit state directly from Storybook's UI. This addon provides a powerful interface for debugging, manipulating, and tracking Redux state changes in your stories.
 
 ## Acknowledgments
