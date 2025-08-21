@@ -1,3 +1,15 @@
+# v1.0.6 (Thu Aug 21 2025)
+
+#### 🐛 Bug Fix
+
+- fix: ci release [#21](https://github.com/upteran/storybook-addon-redux-store/pull/21) ([@upteran](https://github.com/upteran))
+
+#### Authors: 1
+
+- Andrew Tereshkin ([@upteran](https://github.com/upteran))
+
+---
+
 # v1.0.5 (Thu Aug 21 2025)
 
 #### ⚠️ Pushed to `main`
