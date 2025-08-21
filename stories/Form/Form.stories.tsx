@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { ARG_REDUX_PATH, PARAM_REDUX_MERGE_STATE } from "../../src/constants";
 import { Form } from "./Form";
 
