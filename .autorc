@@ -1,6 +1,4 @@
 {
-    "versionBranches": [
-        "1.x"
-    ],
+    "versionBranches": "1.x",
     "noVersionPrefix": false
 }
